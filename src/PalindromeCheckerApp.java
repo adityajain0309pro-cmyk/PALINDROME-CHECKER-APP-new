@@ -94,6 +94,35 @@ public class PalindromeCheckerApp {
         }
 
         System.out.println("Is Palindrome (stack)? : " + isPalStack);
+
+        // --- Use Case 6: Queue + Stack fairness check ---
+        System.out.println();
+        System.out.println("Use Case 6: Queue + Stack Fairness Check");
+
+        String input5 = "civic"; // change to test other values
+        System.out.println("Input : " + input5);
+
+        java.util.Queue<Character> queue = new java.util.LinkedList<>();
+        java.util.Stack<Character> stack2 = new java.util.Stack<>();
+
+        // Insert each character into both queue and stack
+        for (char c : input5.toCharArray()) {
+            queue.add(c); // FIFO
+            stack2.push(c); // LIFO
+        }
+
+        boolean isPalindromeFair = true;
+        // Compare until queue becomes empty
+        while (!queue.isEmpty()) {
+            char q = queue.remove();
+            char s = stack2.pop();
+            if (q != s) {
+                isPalindromeFair = false;
+                break;
+            }
+        }
+
+        System.out.println("Is Palindrome? : " + isPalindromeFair);
     }
 
 }
