@@ -24,6 +24,28 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println("Result: The string is NOT a palindrome.");
         }
+
+        // --- Use Case 3: Reverse-string based palindrome check (in same file) ---
+        System.out.println();
+        System.out.println("Use Case 3: Reverse String Based Palindrome Check");
+
+        String input2 = "racecar"; // change to test other values
+        System.out.println("Input string: " + input2);
+
+        StringBuilder sb = new StringBuilder();
+        // Iterate from the last character to the first.
+        for (int i = input2.length() - 1; i >= 0; i--) {
+            sb.append(input2.charAt(i));
+        }
+
+        String reversed = sb.toString();
+        System.out.println("Reversed string: " + reversed);
+
+        if (input2.equals(reversed)) {
+            System.out.println("Result: The string is a palindrome.");
+        } else {
+            System.out.println("Result: The string is NOT a palindrome.");
+        }
     }
 
 }
