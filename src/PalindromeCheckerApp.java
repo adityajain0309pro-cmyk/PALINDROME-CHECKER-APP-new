@@ -46,6 +46,29 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println("Result: The string is NOT a palindrome.");
         }
+
+        // --- Use Case 4: Character-array two-pointer based palindrome check ---
+        System.out.println();
+        System.out.println("Use Case 4: Character Array Two-Pointer Palindrome Check");
+
+        String input3 = "radar"; // change to test other values
+        System.out.println("Input string: " + input3);
+
+        char[] chars = input3.toCharArray();
+        int start = 0;
+        int end = chars.length - 1;
+        boolean isPal = true;
+
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                isPal = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+
+        System.out.println("Is Palindrome? : " + isPal);
     }
 
 }
