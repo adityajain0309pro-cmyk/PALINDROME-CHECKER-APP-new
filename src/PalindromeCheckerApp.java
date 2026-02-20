@@ -123,6 +123,30 @@ public class PalindromeCheckerApp {
         }
 
         System.out.println("Is Palindrome? : " + isPalindromeFair);
+
+        // --- Use Case 7: Deque-based optimized palindrome checker ---
+        System.out.println();
+        System.out.println("Use Case 7: Deque Based Optimized Palindrome Checker");
+
+        String input6 = "refer"; // change to test other values
+        System.out.println("Input : " + input6);
+
+        java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
+        for (char c : input6.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        boolean isPalDeque = true;
+        while (deque.size() > 1) {
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
+            if (first != last) {
+                isPalDeque = false;
+                break;
+            }
+        }
+
+        System.out.println("Is Palindrome? : " + isPalDeque);
     }
 
 }
