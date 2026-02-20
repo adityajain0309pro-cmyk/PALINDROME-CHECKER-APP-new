@@ -69,6 +69,84 @@ public class PalindromeCheckerApp {
         }
 
         System.out.println("Is Palindrome? : " + isPal);
+
+        // --- Use Case 5: Stack-based palindrome check ---
+        System.out.println();
+        System.out.println("Use Case 5: Stack-Based Palindrome Check");
+
+        String input4 = "noon"; // change to test other values
+        System.out.println("Input string: " + input4);
+
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+        // Push each character onto the stack
+        for (char c : input4.toCharArray()) {
+            stack.push(c);
+        }
+
+        boolean isPalStack = true;
+        // Iterate again through original string and compare with popped chars
+        for (char c : input4.toCharArray()) {
+            char top = stack.pop();
+            if (c != top) {
+                isPalStack = false;
+                break;
+            }
+        }
+
+        System.out.println("Is Palindrome (stack)? : " + isPalStack);
+
+        // --- Use Case 6: Queue + Stack fairness check ---
+        System.out.println();
+        System.out.println("Use Case 6: Queue + Stack Fairness Check");
+
+        String input5 = "civic"; // change to test other values
+        System.out.println("Input : " + input5);
+
+        java.util.Queue<Character> queue = new java.util.LinkedList<>();
+        java.util.Stack<Character> stack2 = new java.util.Stack<>();
+
+        // Insert each character into both queue and stack
+        for (char c : input5.toCharArray()) {
+            queue.add(c); // FIFO
+            stack2.push(c); // LIFO
+        }
+
+        boolean isPalindromeFair = true;
+        // Compare until queue becomes empty
+        while (!queue.isEmpty()) {
+            char q = queue.remove();
+            char s = stack2.pop();
+            if (q != s) {
+                isPalindromeFair = false;
+                break;
+            }
+        }
+
+        System.out.println("Is Palindrome? : " + isPalindromeFair);
+
+        // --- Use Case 7: Deque-based optimized palindrome checker ---
+        System.out.println();
+        System.out.println("Use Case 7: Deque Based Optimized Palindrome Checker");
+
+        String input6 = "refer"; // change to test other values
+        System.out.println("Input : " + input6);
+
+        java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
+        for (char c : input6.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        boolean isPalDeque = true;
+        while (deque.size() > 1) {
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
+            if (first != last) {
+                isPalDeque = false;
+                break;
+            }
+        }
+
+        System.out.println("Is Palindrome? : " + isPalDeque);
     }
 
 }
