@@ -109,9 +109,8 @@ public class PalindromeCheckerApp {
         Node head = null, tail = null;
         for (char c : input7.toCharArray()) {
             Node newNode = new Node(c);
-            if (head == null) {
-                head = tail = newNode;
-            } else {
+            if (head == null) head = tail = newNode;
+            else {
                 tail.next = newNode;
                 tail = newNode;
             }
@@ -153,7 +152,7 @@ public class PalindromeCheckerApp {
         DoublyNode leftNode = headD, rightNode = tailD;
         boolean isDoublyPalindrome = true;
         while (leftNode != null && rightNode != null && leftNode != rightNode && rightNode.next != leftNode) {
-            if (leftNode.data != rightNode.data) {
+            if (leftNode.data != rightNode.data) { // ✅ compare data
                 isDoublyPalindrome = false;
                 break;
             }
@@ -181,18 +180,38 @@ public class PalindromeCheckerApp {
 
         // --- UC11: Object-Oriented Palindrome Service ---
         System.out.println("Use Case 11: Object-Oriented Palindrome Service");
-        PalindromeChecker checker = new PalindromeChecker();
-
+        PalindromeChecker checkerUC11 = new PalindromeChecker();
         String[] uc11Tests = {"racecar", "hello", "A man a plan a canal Panama"};
         for (String s : uc11Tests) {
             System.out.println("Input: " + s);
-            boolean res = checker.checkPalindrome(s);
+            boolean res = checkerUC11.checkPalindrome(s);
             System.out.println("Is Palindrome? : " + res + "\n");
+        }
+
+        // --- UC12: Strategy Pattern for Palindrome Algorithms ---
+        System.out.println("Use Case 12: Strategy Pattern for Palindrome Algorithms");
+        String[] uc12Tests = {"racecar", "hello", "A man a plan a canal Panama"};
+
+        // Create strategies
+        PalindromeStrategy stackStrategy = new StackStrategy();
+        PalindromeStrategy dequeStrategy = new DequeStrategy();
+
+        // Using StackStrategy
+        System.out.println("--- Using StackStrategy ---");
+        StrategyPalindromeChecker checkerUC12 = new StrategyPalindromeChecker(stackStrategy);
+        for (String s : uc12Tests) {
+            System.out.println("Input: " + s + " | Is Palindrome? : " + checkerUC12.check(s));
+        }
+
+        // Switch to DequeStrategy at runtime
+        System.out.println("\n--- Switching to DequeStrategy ---");
+        checkerUC12.setStrategy(dequeStrategy);
+        for (String s : uc12Tests) {
+            System.out.println("Input: " + s + " | Is Palindrome? : " + checkerUC12.check(s));
         }
     }
 
     // --- Supporting Classes ---
-
     static class Node {
         char data;
         Node next;
@@ -202,26 +221,59 @@ public class PalindromeCheckerApp {
     static class DoublyNode {
         char data;
         DoublyNode next, prev;
-        DoublyNode(char data) { this.data = data; this.next = this.prev = null; }
+
+        DoublyNode(char data) {
+            this.data = data;   // assign the char
+            this.next = null;   // initially no next
+            this.prev = null;   // initially no prev
+        }
     }
 
     // --- UC11 Palindrome Service Class ---
     static class PalindromeChecker {
-
         public boolean checkPalindrome(String input) {
             if (input == null) return false;
-
-            // Normalize: remove spaces, lowercase
             String normalized = input.replaceAll("\\s+", "").toLowerCase();
-
             Stack<Character> stack = new Stack<>();
             for (char c : normalized.toCharArray()) stack.push(c);
-
             for (char c : normalized.toCharArray()) {
                 if (c != stack.pop()) return false;
             }
-
             return true;
         }
+    }
+
+    // --- UC12 Strategy Interface & Implementations ---
+    interface PalindromeStrategy {
+        boolean isPalindrome(String input);
+    }
+
+    static class StackStrategy implements PalindromeStrategy {
+        public boolean isPalindrome(String input) {
+            if (input == null) return false;
+            String normalized = input.replaceAll("\\s+", "").toLowerCase();
+            Stack<Character> stack = new Stack<>();
+            for (char c : normalized.toCharArray()) stack.push(c);
+            for (char c : normalized.toCharArray()) if (c != stack.pop()) return false;
+            return true;
+        }
+    }
+
+    static class DequeStrategy implements PalindromeStrategy {
+        public boolean isPalindrome(String input) {
+            if (input == null) return false;
+            String normalized = input.replaceAll("\\s+", "").toLowerCase();
+            Deque<Character> deque = new ArrayDeque<>();
+            for (char c : normalized.toCharArray()) deque.addLast(c);
+            while (deque.size() > 1) if (deque.removeFirst() != deque.removeLast()) return false;
+            return true;
+        }
+    }
+
+    static class StrategyPalindromeChecker {
+        private PalindromeStrategy strategy;
+        public StrategyPalindromeChecker(PalindromeStrategy strategy) { this.strategy = strategy; }
+        public void setStrategy(PalindromeStrategy strategy) { this.strategy = strategy; }
+        public boolean check(String input) { return strategy.isPalindrome(input); }
     }
 }
