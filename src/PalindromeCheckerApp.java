@@ -1,7 +1,7 @@
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
-        // --- Use Case 1: Application Entry & Welcome Message ---
+       
         System.out.println("Welcome to the Palindrome Checker Management System");
         System.out.println("Version : 1.0");
         System.out.println("System initialized successfully.");
@@ -9,15 +9,14 @@ public class PalindromeCheckerApp {
         System.out.println();
         System.out.println("Palindrome Checker Application - UC2: Hardcoded Palindrome Validation");
 
-        // Hardcoded input for Use Case 2
-        String input = "madam"; // change this string to test other values
+       
+        String input = "racecar"; // change this string to test other values
 
         System.out.println("Input string: " + input);
 
         boolean isPalindrome = true;
         int len = input.length();
 
-        // Loop only till half of the string length.
         for (int i = 0; i < len / 2; i++) {
             if (input.charAt(i) != input.charAt(len - 1 - i)) {
                 isPalindrome = false;
@@ -31,7 +30,7 @@ public class PalindromeCheckerApp {
             System.out.println("Result: The string is NOT a palindrome.");
         }
 
-        // --- Use Case 3: Reverse-string based palindrome check (in same file) ---
+        
         System.out.println();
         System.out.println("Use Case 3: Reverse String Based Palindrome Check");
 
@@ -53,7 +52,7 @@ public class PalindromeCheckerApp {
             System.out.println("Result: The string is NOT a palindrome.");
         }
 
-        // --- Use Case 4: Character-array two-pointer based palindrome check ---
+       
         System.out.println();
         System.out.println("Use Case 4: Character Array Two-Pointer Palindrome Check");
 
@@ -76,7 +75,7 @@ public class PalindromeCheckerApp {
 
         System.out.println("Is Palindrome? : " + isPal);
 
-        // --- Use Case 5: Stack-based palindrome check ---
+        
         System.out.println();
         System.out.println("Use Case 5: Stack-Based Palindrome Check");
 
@@ -101,7 +100,7 @@ public class PalindromeCheckerApp {
 
         System.out.println("Is Palindrome (stack)? : " + isPalStack);
 
-        // --- Use Case 6: Queue + Stack fairness check ---
+        
         System.out.println();
         System.out.println("Use Case 6: Queue + Stack Fairness Check");
 
@@ -130,7 +129,7 @@ public class PalindromeCheckerApp {
 
         System.out.println("Is Palindrome? : " + isPalindromeFair);
 
-        // --- Use Case 7: Deque-based optimized palindrome checker ---
+      
         System.out.println();
         System.out.println("Use Case 7: Deque Based Optimized Palindrome Checker");
 
