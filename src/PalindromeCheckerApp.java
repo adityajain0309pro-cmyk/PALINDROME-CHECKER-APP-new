@@ -208,7 +208,43 @@ public class PalindromeCheckerApp {
         checkerUC12.setStrategy(dequeStrategy);
         for (String s : uc12Tests) {
             System.out.println("Input: " + s + " | Is Palindrome? : " + checkerUC12.check(s));
+
         }
+        // --- UC13: Performance Comparison of Palindrome Approaches ---
+        System.out.println("Use Case 13: Performance Comparison of Palindrome Approaches");
+
+// Test inputs
+        String[] testInputs = {
+                "racecar",
+                "A man a plan a canal Panama",
+                "hello world",
+                "noon",
+                "refer"
+        };
+
+// Strategies to compare
+        PalindromeStrategy[] strategies = {
+                new StackStrategy(),
+                new DequeStrategy()
+        };
+
+        String[] strategyNames = {"StackStrategy", "DequeStrategy"};
+
+        for (int i = 0; i < strategies.length; i++) {
+            PalindromeStrategy strat = strategies[i];
+            System.out.println("\n--- Timing: " + strategyNames[i] + " ---");
+
+            for (String inputStr : testInputs) {
+                long startTime = System.nanoTime();
+                boolean result = strat.isPalindrome(inputStr);
+                long endTime = System.nanoTime();
+                long duration = endTime - startTime;
+
+                System.out.println("Input: \"" + inputStr + "\" | Is Palindrome? : "
+                        + result + " | Time (ns): " + duration);
+            }
+        }
+        System.out.println();
     }
 
     // --- Supporting Classes ---
