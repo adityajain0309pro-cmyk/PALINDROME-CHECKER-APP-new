@@ -31,9 +31,7 @@ public class PalindromeCheckerApp {
         String input2 = "racecar";
         System.out.println("Input string: " + input2);
         StringBuilder sb = new StringBuilder();
-        for (int i = input2.length() - 1; i >= 0; i--) {
-            sb.append(input2.charAt(i));
-        }
+        for (int i = input2.length() - 1; i >= 0; i--) sb.append(input2.charAt(i));
         String reversed = sb.toString();
         System.out.println("Reversed string: " + reversed);
         System.out.println("Result: " + (input2.equals(reversed) ? "Palindrome" : "NOT a palindrome") + "\n");
@@ -179,8 +177,21 @@ public class PalindromeCheckerApp {
             l++;
             r--;
         }
-        System.out.println("Is Palindrome (case-insensitive & space-ignored)? : " + isPalUC10);
+        System.out.println("Is Palindrome (case-insensitive & space-ignored)? : " + isPalUC10 + "\n");
+
+        // --- UC11: Object-Oriented Palindrome Service ---
+        System.out.println("Use Case 11: Object-Oriented Palindrome Service");
+        PalindromeChecker checker = new PalindromeChecker();
+
+        String[] uc11Tests = {"racecar", "hello", "A man a plan a canal Panama"};
+        for (String s : uc11Tests) {
+            System.out.println("Input: " + s);
+            boolean res = checker.checkPalindrome(s);
+            System.out.println("Is Palindrome? : " + res + "\n");
+        }
     }
+
+    // --- Supporting Classes ---
 
     static class Node {
         char data;
@@ -192,5 +203,25 @@ public class PalindromeCheckerApp {
         char data;
         DoublyNode next, prev;
         DoublyNode(char data) { this.data = data; this.next = this.prev = null; }
+    }
+
+    // --- UC11 Palindrome Service Class ---
+    static class PalindromeChecker {
+
+        public boolean checkPalindrome(String input) {
+            if (input == null) return false;
+
+            // Normalize: remove spaces, lowercase
+            String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+            Stack<Character> stack = new Stack<>();
+            for (char c : normalized.toCharArray()) stack.push(c);
+
+            for (char c : normalized.toCharArray()) {
+                if (c != stack.pop()) return false;
+            }
+
+            return true;
+        }
     }
 }
